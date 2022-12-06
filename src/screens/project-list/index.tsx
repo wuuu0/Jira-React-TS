@@ -13,7 +13,7 @@ export const ProjectListScreen = () => {
   });
   const [list, setList] = useState([]);
   const [users, setUsers] = useState([]);
-  const decounceParam = useDebounce(param, 1000);
+  const decounceParam = useDebounce(param, 200);
 
   useEffect(() => {
     fetch(
@@ -31,7 +31,7 @@ export const ProjectListScreen = () => {
         setUsers(await response.json());
       }
     });
-  }, []);
+  });
 
   return (
     <div>
