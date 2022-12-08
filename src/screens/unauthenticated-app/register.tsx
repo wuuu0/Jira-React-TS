@@ -1,13 +1,13 @@
 import { useAuth } from "context/auth-context";
 import { FormEvent } from "react";
 
-export const LoginScreen = () => {
-  const { login, user } = useAuth();
+export const RegisterScreen = () => {
+  const { register, user } = useAuth();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const username = (evt.currentTarget.elements[0] as HTMLFormElement).value;
     const password = (evt.currentTarget.elements[1] as HTMLFormElement).value;
-    login({ username, password });
+    register({ username, password });
   };
   return (
     /* 
@@ -16,7 +16,6 @@ export const LoginScreen = () => {
         - 如此一来，实际的 event 是信息更完备的子类，可以传递给要求父类的 handleSubmit
     */
     <form onSubmit={handleSubmit}>
-      {user ? <div>登录成功，用户名为：{user.name}</div> : null}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id={"username"} />
@@ -25,7 +24,7 @@ export const LoginScreen = () => {
         <label htmlFor="password">密码</label>
         <input type="password" id={"password"} />
       </div>
-      <button type="submit">登录</button>
+      <button type="submit">注册</button>
     </form>
   );
 };
