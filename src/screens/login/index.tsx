@@ -1,20 +1,8 @@
+import { useAuth } from "context/auth-context";
 import { FormEvent } from "react";
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 export const LoginScreen = () => {
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response) => {
-      if (response.ok) {
-      }
-    });
-  };
+  const { login, user } = useAuth();
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const username = (evt.currentTarget.elements[0] as HTMLFormElement).value;
@@ -28,6 +16,7 @@ export const LoginScreen = () => {
         - 如此一来，实际的 event 是信息更完备的子类，可以传递给要求父类的 handleSubmit
     */
     <form onSubmit={handleSubmit}>
+      {user ? <div>登录成功，用户名为：{user.name}</div> : null}
       <div>
         <label htmlFor="username">用户名</label>
         <input type="text" id={"username"} />

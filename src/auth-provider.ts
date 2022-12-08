@@ -22,6 +22,10 @@ export const login = async (data: { username: string; password: string }) => {
     if (response.ok) {
       return handleUserResponse(await response.json());
     }
+    // 不定义 else 情况的话，会默认返回 解决为undefined的期约
+    else {
+      return Promise.reject(data);
+    }
   });
 };
 
@@ -38,8 +42,11 @@ export const register = async (data: {
   }).then(async (response) => {
     if (response.ok) {
       return handleUserResponse(await response.json());
+    } else {
+      return Promise.reject(data);
     }
   });
 };
 
-export const logout = () => window.localStorage.removeItem(localStorageKey);
+export const logout = async () =>
+  window.localStorage.removeItem(localStorageKey);
