@@ -3,6 +3,7 @@ import { LoginScreen } from "./login";
 import { RegisterScreen } from "./register";
 
 export const UnauthenticatedApp = () => {
+  // 用 state 的原因是确保 state 变化后，组件重新渲染
   const [isRegister, setIsRegister] = useState(false);
   return (
     <div>
