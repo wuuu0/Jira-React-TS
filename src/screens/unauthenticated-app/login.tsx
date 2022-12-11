@@ -1,13 +1,11 @@
 import { useAuth } from "context/auth-context";
-import { FormEvent } from "react";
+// import { FormEvent } from "react";
+import { Form, Input, Button } from "antd";
 
 export const LoginScreen = () => {
   const { login, user } = useAuth();
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const username = (evt.currentTarget.elements[0] as HTMLFormElement).value;
-    const password = (evt.currentTarget.elements[1] as HTMLFormElement).value;
-    login({ username, password });
+  const handleSubmit = (values: { username: string; password: string }) => {
+    login(values);
   };
   return (
     /* 
@@ -15,16 +13,24 @@ export const LoginScreen = () => {
         - 再看事件处理函数：handleSubmit 的定义是要求的参数 evt 接口类型可以是FormEvent<HTMLFormElement> 的父类
         - 如此一来，实际的 event 是信息更完备的子类，可以传递给要求父类的 handleSubmit
     */
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">用户名</label>
-        <input type="text" id={"username"} />
-      </div>
-      <div>
-        <label htmlFor="password">密码</label>
-        <input type="password" id={"password"} />
-      </div>
-      <button type="submit">登录</button>
-    </form>
+    <Form onFinish={handleSubmit}>
+      <Form.Item
+        name={"username"}
+        rules={[{ required: true, message: "请输入用户名" }]}
+      >
+        <Input placeholder={"用户名"} type="text" id={"username"} />
+      </Form.Item>
+      <Form.Item
+        name={"password"}
+        rules={[{ required: true, message: "请输入密码" }]}
+      >
+        <Input placeholder={"密码"} type="password" id={"password"} />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit" type="primary">
+          登录
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };

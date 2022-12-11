@@ -9,6 +9,11 @@ interface Config extends RequestInit {
   data?: object;
 }
 
+/* 此处的函数参数的解构赋值：
+    const test = ({ q, w, ...e }) => { console.log(e);};
+    const obj = { q: 1, w: 2, s: 3, k: 4 };
+    test(obj)
+    输出: {s: 3, k: 4} */
 export const http = async (
   endpoint: string,
   { data, token, headers, ...customConfig }: Config = {}
